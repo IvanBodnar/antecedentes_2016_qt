@@ -1,0 +1,4 @@
+tipo de colision
+causa
+tipo de victima
+desde año 2010

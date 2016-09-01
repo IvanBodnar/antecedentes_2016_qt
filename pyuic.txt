@@ -1,0 +1,1 @@
+pyuic4 -o designer/gui.py designer/gui.ui

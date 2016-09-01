@@ -1,8 +1,6 @@
 import sys
-import os
 from designer.gui import *
-import PyQt4
-
+from consultas import make_query
 
 
 class Antecedentes(QtGui.QDialog):
@@ -19,16 +17,21 @@ class Antecedentes(QtGui.QDialog):
 
         QtCore.QObject.connect(self.ui.file_toolButton,
                                QtCore.SIGNAL('clicked()'),
-                               self.x)
+                               self.pick_file_name)
         QtCore.QObject.connect(self.ui.aceptar_pushButton,
                                QtCore.SIGNAL('clicked()'),
-                               self.x)
+                               self.save_file)
 
-
-    def x(self):
-        fn = QtGui.QFileDialog.getSaveFileName(self, 'a')
+    def pick_file_name(self):
+        fn = QtGui.QFileDialog.getSaveFileName(self, 'Guardar Archivo')
+        self.ui.file_lineEdit.setText(fn + '.csv')
         print(fn)
 
+    def save_file(self):
+        coords = self.ui.coordenadas_lineEdit.text()
+        distancia = self.ui.distancia_spinBox.value()
+        path = self.ui.file_lineEdit.text()
+        make_query(coords, distancia, path)
 
 
 if __name__ == '__main__':

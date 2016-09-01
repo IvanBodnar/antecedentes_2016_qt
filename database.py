@@ -3,10 +3,10 @@ from psycopg2 import extras
 import pandas as pd
 
 conn_dict = {
-    'host': 'localhost',
-    'dbname': 'pfa_dgc_nueva',
-    'user': 'ivan',
-    'password': 'ivan'
+    'host': '10.68.4.100',
+    'dbname': 'pfa_dgc',
+    'user': 'obs_lectura',
+    'password': 'obs_lectura'
 }
 
 
@@ -57,7 +57,7 @@ class Records:
         """
         return pd.DataFrame.from_dict([row._asdict() for row in self.executed])
 
-    def a_csv(self, path, alias=None):
+    def a_csv(self, path, columns=None, alias=None):
         """
         Devuelve un csv
 
@@ -65,14 +65,13 @@ class Records:
         :param: alias: iterable con los alias de las columnas en el orden deseado
         :return: csv
         """
-        return pd.DataFrame.from_dict([row._asdict() for row in self.executed]).to_csv(path, header=alias, index=False)
+        return pd.DataFrame.from_dict([row._asdict() for row in self.executed]).to_csv(path, header=alias,
+                                                                                       columns=columns, index=False)
 
 
-
-
-
-# q = 'table hechos limit 2;'
-# p = Records(conn_dict, 'hechos', q)
+# q = 'table hechos limit 5;'
 #
-# cs = p.a_csv('prueba.csv')
-
+# rec = Records(conn_dict, 'hechos', q)
+# rec1 = rec.a_ord_dicts()
+#
+# print([x['id'] for x in rec1])
