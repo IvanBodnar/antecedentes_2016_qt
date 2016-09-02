@@ -1,11 +1,19 @@
 from database import Records, conn_dict
+from mensajes import MessageCritical, MessageInfo
+from psycopg2 import OperationalError
 
 
 def make_query(coords, distancia, path):
-    y, x = coords.strip().split(',')
+
+    try:
+        y, x = coords.strip().split(',')
+    except ValueError as e:
+        y, x = None, None
+        m = MessageCritical('Coordenadas Inválidas', e.__str__())
+        m.exec_()
     table = 'hechos'
     distancia = distancia
-    campos = ['fecha', 'hora', 'direccion_normalizada', 'anio', 'tipo_colision', 'causa', 'tipo_recod']
+    campos = ('fecha', 'hora', 'direccion_normalizada', 'anio', 'tipo_colision', 'causa', 'tipo_recod')
     alias = ('fecha', 'hora', 'lugar', 'año', 'tipo de colision', 'causa', 'tipo de usuario')
     path = path
 
@@ -20,9 +28,23 @@ def make_query(coords, distancia, path):
         order by anio;
     '''
 
-    param = campos + [x, y, distancia]
+    param = campos + (x, y, distancia)
 
-    r = Records(conn_dict, table, query_diametro.format(*param))
+    try:
+        r = Records(conn_dict, table, query_diametro.format(*param))
+        r.a_csv(path, columns=campos, alias=alias)
+    except KeyError as e:
+        m = MessageCritical('Ingrese Distancia Válida', e.__str__())
+        m.exec_()
+    except FileNotFoundError as e:
+        m = MessageCritical('Ingrese Nombre de Archivo Válido', e.__str__())
+        m.exec_()
+    except OperationalError as e:
+        m = MessageCritical('Error de Conexión a la Base de Datos', e.__str__())
+        m.exec_()
+    else:
+        m = MessageInfo('Archivo Creado')
+        m.exec_()
 
-    r.a_csv(path, columns=campos, alias=alias)
+
 

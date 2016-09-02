@@ -6,6 +6,10 @@ from yaml import load
 from designer.gui import QtGui
 from mensajes import MessageCritical
 
+"""
+Abrir el archivo config.yml donde estan los dato de
+conexion a la db. El except ejecuta un mensaje critico.
+"""
 try:
     with open('config.yml', 'r') as fh:
         config = load(fh)
