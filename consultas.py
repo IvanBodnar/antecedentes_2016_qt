@@ -24,6 +24,5 @@ def make_query(coords, distancia, path):
 
     r = Records(conn_dict, table, query_diametro.format(*param))
 
-
     r.a_csv(path, columns=campos, alias=alias)
 

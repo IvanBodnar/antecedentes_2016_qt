@@ -1,13 +1,16 @@
 import psycopg2
 from psycopg2 import extras
 import pandas as pd
+from yaml import load
 
-conn_dict = {
-    'host': '10.68.4.100',
-    'dbname': 'pfa_dgc',
-    'user': 'obs_lectura',
-    'password': 'obs_lectura'
-}
+try:
+    with open('confi.yml', 'r') as fh:
+        config = load(fh)
+except FileNotFoundError as e:
+    config = None
+    print(e)
+
+conn_dict = config['conn_dict']
 
 
 class Records:
@@ -62,6 +65,8 @@ class Records:
         Devuelve un csv
 
         :param: path: path donde se va a grabar el csv
+        :param: columns: iterable con los nombres de las columnas
+                         como figuran en la base de datos
         :param: alias: iterable con los alias de las columnas en el orden deseado
         :return: csv
         """
