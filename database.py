@@ -16,7 +16,7 @@ try:
 except FileNotFoundError as e:
     config = None
     app = QtGui.QApplication(sys.argv)
-    m = MessageCritical('Error', e.__str__())
+    m = MessageCritical('No se encontró Configuración', e.__str__())
     m.exec_()
 
 conn_dict = config['conn_dict']
