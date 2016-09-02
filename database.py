@@ -7,7 +7,7 @@ from designer.gui import QtGui
 from mensajes import MessageCritical
 
 """
-Abrir el archivo config.yml donde estan los dato de
+Abrir el archivo config.yml donde estan los datos de
 conexion a la db. El except ejecuta un mensaje critico.
 """
 try:

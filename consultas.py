@@ -34,7 +34,7 @@ def make_query(coords, distancia, path):
         r = Records(conn_dict, table, query_diametro.format(*param))
         r.a_csv(path, columns=campos, alias=alias)
     except KeyError as e:
-        m = MessageCritical('Ingrese Distancia Válida', e.__str__())
+        m = MessageCritical('Búsqueda sin Resultados: No se Generó Archivo.\n Tip: Aumente radio de búsqueda', e.__str__())
         m.exec_()
     except FileNotFoundError as e:
         m = MessageCritical('Ingrese Nombre de Archivo Válido', e.__str__())

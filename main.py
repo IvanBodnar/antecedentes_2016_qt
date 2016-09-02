@@ -35,8 +35,9 @@ class Antecedentes(QtGui.QDialog):
         coords = self.ui.coordenadas_lineEdit.text()
         distancia = self.ui.distancia_spinBox.value()
         path = self.ui.file_lineEdit.text()
-        make_query(coords, distancia, path)
-        self.clear_form()
+        result = make_query(coords, distancia, path)
+        if result:
+            self.clear_form()
 
 
 
