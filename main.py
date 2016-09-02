@@ -1,7 +1,6 @@
 import sys
 from designer.gui import *
 from consultas import make_query
-from mensajes import MessageCritical
 
 
 class Antecedentes(QtGui.QDialog):
@@ -23,6 +22,11 @@ class Antecedentes(QtGui.QDialog):
                                QtCore.SIGNAL('clicked()'),
                                self.save_file)
 
+    def clear_form(self):
+        self.ui.coordenadas_lineEdit.clear()
+        self.ui.distancia_spinBox.setValue(1)
+        self.ui.file_lineEdit.clear()
+
     def pick_file_name(self):
         fn = QtGui.QFileDialog.getSaveFileName(self, 'Guardar Archivo')
         self.ui.file_lineEdit.setText(fn + '.csv')
@@ -32,8 +36,7 @@ class Antecedentes(QtGui.QDialog):
         distancia = self.ui.distancia_spinBox.value()
         path = self.ui.file_lineEdit.text()
         make_query(coords, distancia, path)
-
-
+        self.clear_form()
 
 
 
