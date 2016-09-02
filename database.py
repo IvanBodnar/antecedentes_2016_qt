@@ -1,14 +1,19 @@
+import sys
 import psycopg2
 from psycopg2 import extras
 import pandas as pd
 from yaml import load
+from designer.gui import QtGui
+from mensajes import MessageCritical
 
 try:
-    with open('confi.yml', 'r') as fh:
+    with open('config.yml', 'r') as fh:
         config = load(fh)
 except FileNotFoundError as e:
     config = None
-    print(e)
+    app = QtGui.QApplication(sys.argv)
+    m = MessageCritical('Error', e.__str__())
+    m.exec_()
 
 conn_dict = config['conn_dict']
 
