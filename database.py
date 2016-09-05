@@ -81,11 +81,3 @@ class Records:
         """
         return pd.DataFrame.from_dict([row._asdict() for row in self.executed]).to_csv(path, header=alias,
                                                                                        columns=columns, index=False)
-
-
-# q = 'table hechos limit 5;'
-#
-# rec = Records(conn_dict, 'hechos', q)
-# rec1 = rec.a_ord_dicts()
-#
-# print([x['id'] for x in rec1])

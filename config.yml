@@ -1,5 +1,5 @@
 conn_dict:
-    host: localhost
-    dbname: pfa_dgc_nueva
-    user: ivan
-    password: ivan
+    host: 10.68.4.100
+    dbname: pfa_dgc
+    user: obs_lectura
+    password: obs_lectura
